@@ -14,6 +14,19 @@ page_config()
 
 st.sidebar.success('')
 
+st.title('Laadpalen & Elektrisch vervoer Dashboard')
+st.markdown(
+    """
+    Binnen deze Dashboard wordt er gekeken naar verschillende ondervindingen van de Laadpalen & Elektrisch vervoer datasets.  
+    Hierin worden de volgende onderdelen besproken:
+    - Aantal cumulatieve voertuigen met een Lineair Regression model.  
+    - Verdeling van Laadpunten in Nederland.  
+    - Gemiddelde elektriciteit prijs voor laadpunten.  
+    - Populaire merken en modellen.  
+    - Laadpunten per stad in een folium map.
+    """
+)
+
 @st.cache_data
 def df():
     return pd.read_pickle('cars2.pkl')
