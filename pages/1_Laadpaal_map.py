@@ -269,4 +269,4 @@ def laadpaal_map(town, n_points):
 
 
 map_display = laadpaal_map(town, selected_n_points)
-st_folium(map_display, width=750)
+st_folium(map_display, width=2000)
