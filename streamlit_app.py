@@ -69,7 +69,8 @@ with column1:
     fig.update_layout(
         {
             'xaxis': {'title': {'text': 'Maand'}},
-            'yaxis': {'title': {'text': 'Aantal voertuigen'}}
+            'yaxis': {'title': {'text': 'Aantal voertuigen'}},
+            'legend_title': ''
         }
     )
 
