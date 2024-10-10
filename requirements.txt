@@ -6,4 +6,3 @@ plotly
 requests
 folium
 streamlit_folium
-zipfile
