@@ -225,7 +225,7 @@ st.plotly_chart(fig)
 
 @st.cache_data
 def csv_file():
-    return pd.read_csv('2013tm2023.CSV')
+    return pd.read_csv('2013tm2023.csv')
 
 
 df_jaren = csv_file()
