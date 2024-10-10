@@ -280,3 +280,79 @@ with column1:
 with column2:
     fig = create_histogram(x_axis_option)
     st.plotly_chart(fig)
+
+
+@st.cache_data
+def rwd_api():
+    return pd.read_json("https://opendata.rdw.nl/resource/m9d7-ebf2.json?$limit=100000")
+
+
+RDWvoertuigen_df = rwd_api()
+
+# Omzetten van datum naar datetime-formaat
+RDWvoertuigen_df['datum_eerste_tenaamstelling_in_nederland'] = pd.to_datetime(
+    RDWvoertuigen_df['datum_eerste_tenaamstelling_in_nederland'], format='%Y%m%d')
+# set 'date' column to proper format, filter a new column holding the year and numeric month.
+RDWvoertuigen_df['year'] = RDWvoertuigen_df['datum_eerste_tenaamstelling_in_nederland'].dt.year
+# print(RDWvoertuigen_df['year'].value_counts())
+
+non_cars = ['Middenasaanhangwagen', 'Motorfiets', 'Aanhangwagen', 'Bromfiets', 'Oplegger', 'Driewielig motorrijtuig',
+            'Autonome aanhangwagen', 'Land- of bosb aanhw of getr uitr stuk', 'Mobiele machine',
+            'Motorfiets met zijspan']
+RDWvoertuigen_df.drop(RDWvoertuigen_df.loc[RDWvoertuigen_df['voertuigsoort'].isin(non_cars)].index, inplace=True)
+RDWvoertuigen_df['aantal_cilinders'] = RDWvoertuigen_df['aantal_cilinders'].fillna(0)
+
+elektrische_merken = RDWvoertuigen_df[RDWvoertuigen_df['aantal_cilinders'] == 0]
+
+# Streamlit page title
+st.title("EV popularity via registration count from RDW datasets")
+
+# Selectbox for choosing plot type
+plot_type = st.selectbox("Kies een plot type:", ["20 meest geregistreerde merken", "20 meest geregistreerde modellen"])
+
+# plots data for brand choice
+if plot_type == "20 meest geregistreerde merken":
+    # set up variable for most popular brands from RDW and the average prices for each these brands.
+    populaire_merken = elektrische_merken['merk'].value_counts().head(20)
+    average_prices = elektrische_merken.groupby('merk')['catalogusprijs'].mean().loc[populaire_merken.index]
+
+    # Plots bars for brand count
+    fig, ax1 = plt.subplots(figsize=(10, 5))
+    populaire_merken.plot(kind='bar', color='skyblue', ax=ax1, position=0, width=0.4)
+    ax1.set_title('20 meest populaire elektrische merken')
+    ax1.set_xlabel('Merk', fontsize=10)
+    ax1.set_ylabel('Aantal registraties', color='skyblue')
+    ax1.tick_params(axis='y', labelcolor='skyblue')
+    ax1.grid(axis='y')
+
+    # Plots bars for brand average price
+    ax2 = ax1.twinx()
+    average_prices.plot(kind='bar', color='orange', ax=ax2, position=1, width=0.4)
+    ax2.set_ylabel('Gemiddelde catalogusprijs', color='orange')
+    ax2.tick_params(axis='y', labelcolor='orange')
+
+    st.pyplot(fig)
+
+# plots data for model choice
+elif plot_type == "20 meest geregistreerde modellen":
+    # set up variable for most popular models from RDW and the average prices for each these models.
+    populaire_modellen = elektrische_merken['handelsbenaming'].value_counts().head(20)
+    average_model_prices = elektrische_merken.groupby('handelsbenaming')['catalogusprijs'].mean().loc[
+        populaire_modellen.index]
+
+    # Plots bars for model count
+    fig, ax1 = plt.subplots(figsize=(10, 5))
+    populaire_modellen.plot(kind='bar', color='lightgreen', ax=ax1, position=0, width=0.4)
+    ax1.set_title('Populaire modellen elektrische voertuigen')
+    ax1.set_xlabel('Model', fontsize=10)
+    ax1.set_ylabel('Aantal voertuigen', color='lightgreen')
+    ax1.tick_params(axis='y', labelcolor='lightgreen')
+    ax1.grid(axis='y')
+
+    # Plots bars for model average price
+    ax2 = ax1.twinx()
+    average_model_prices.plot(kind='bar', color='red', ax=ax2, position=1, width=0.4)
+    ax2.set_ylabel('Gemiddelde catalogusprijs', color='red')
+    ax2.tick_params(axis='y', labelcolor='red')
+
+    st.pyplot(fig)
