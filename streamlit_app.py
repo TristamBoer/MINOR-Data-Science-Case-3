@@ -145,7 +145,7 @@ fig.add_trace(go.Scatter(
     x=df['maand_jaar'],
     y=df['Cumulatief_aantal_voertuigen'],
     mode='lines+markers',
-    name='Aantal voertuigen',
+    name='Aantal benzine voertuigen',
     marker_color='Blue'
 ))
 
@@ -153,7 +153,7 @@ fig.add_trace(go.Scatter(
     x=df['maand_jaar'],
     y=numpy_lineair_regression(df, 'maand_jaar', 'Cumulatief_aantal_voertuigen'),
     mode='lines',
-    name='Lineair model',
+    name='Benzine lineair model',
     marker_color='aqua'
 ))
 
@@ -163,7 +163,7 @@ fig.add_trace(go.Scatter(
     x=df['maand_jaar'],
     y=df['Cumulatief_aantal_voertuigen'],
     mode='lines+markers',
-    name='Aantal voertuigen',
+    name='Aantal elektrische voertuigen',
     marker_color='red'
 ))
 
@@ -171,7 +171,7 @@ fig.add_trace(go.Scatter(
     x=df['maand_jaar'],
     y=numpy_lineair_regression(df, 'maand_jaar', 'Cumulatief_aantal_voertuigen'),
     mode='lines',
-    name='Lineair model',
+    name='Elektrische llineair model',
     marker_color='pink'
 ))
 
