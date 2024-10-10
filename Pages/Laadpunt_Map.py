@@ -15,6 +15,9 @@ def page_config():
 
 page_config()
 
+st.sidebar.success()
+
+
 def get_api_data(url, limit=None):
     """ Gets values from online API
 
