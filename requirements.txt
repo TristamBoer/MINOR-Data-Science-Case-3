@@ -4,3 +4,5 @@ numpy
 plotly_express
 plotly
 requests
+folium
+streamlit_folium
