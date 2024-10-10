@@ -15,7 +15,7 @@ def page_config():
 
 page_config()
 
-st.sidebar.success()
+st.sidebar.success('')
 
 
 def get_api_data(url, limit=None):
