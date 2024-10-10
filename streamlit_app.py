@@ -5,6 +5,7 @@ import numpy as np
 import plotly_express as px
 import plotly.graph_objects as go
 import folium
+from zipfile import ZipFile
 
 
 def page_config():
@@ -15,7 +16,8 @@ page_config()
 
 @st.cache_data
 def df():
-    return pd.read_pickle('cars/cars.pkl')
+    with ZipeFile('cars.zip', 'r':
+        return pd.read_pickle('cars.pkl')
 
 
 cars_df = df()
