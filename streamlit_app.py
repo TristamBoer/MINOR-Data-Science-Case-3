@@ -13,7 +13,12 @@ def page_config():
 
 page_config()
 
-cars_df = pd.read_pickle('cars.pkl')
+@st.cache_data
+def df():
+    return pd.read_pickle('cars/cars.pkl')
+
+
+cars_df = df()
 
 # Functie gemaakt door Nathan Isaac (team 19), met toestemming gebruikt.
 def bepaal_brandstof(naam):
