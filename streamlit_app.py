@@ -16,8 +16,7 @@ page_config()
 
 @st.cache_data
 def df():
-    with ZipeFile('cars.zip', 'r':
-        return pd.read_pickle('cars.pkl')
+    return pd.read_pickle('cars2.pkl')
 
 
 cars_df = df()
