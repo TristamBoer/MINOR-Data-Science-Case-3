@@ -13,6 +13,8 @@ def page_config():
 
 page_config()
 
+st.sidebar.success('')
+
 @st.cache_data
 def df():
     return pd.read_pickle('cars2.pkl')
