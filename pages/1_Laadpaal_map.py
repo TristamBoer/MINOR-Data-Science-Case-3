@@ -4,10 +4,6 @@ from streamlit_folium import st_folium
 import pandas as pd
 import folium
 import requests
-import numpy as np
-import plotly_express as px
-import plotly.graph_objects as go
-import matplotlib.pyplot as plt
 
 def page_config():
     st.set_page_config(layout='wide')
