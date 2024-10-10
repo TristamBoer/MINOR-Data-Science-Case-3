@@ -5,7 +5,6 @@ import numpy as np
 import plotly_express as px
 import plotly.graph_objects as go
 import folium
-from zipfile import ZipFile
 
 
 def page_config():
